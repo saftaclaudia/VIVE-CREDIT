@@ -1,3 +1,11 @@
+import { reasonCodeMap } from "../constants/reasoneCodeMap";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
+
 interface Props {
   applications: any[];
   filters: { status: string; search: string };
@@ -34,11 +42,12 @@ export default function RiskApplicationsTable({
   return (
     <div className="mt-4 bg-white border brorde-gray-200 rounded-xl shadow-sm overflow-hidden">
       {/* TABLE HEADER */}
-      <div className="grid grid-cols-4 px-4 py-4 bg-gray-50  font-semibold text-gray-700">
+      <div className="grid grid-cols-5 px-4 py-4 bg-gray-50  font-semibold text-gray-700">
         <div>ID Aplicatie</div>
         <div>Client</div>
         <div>Status</div>
         <div>Scor</div>
+        <div>Reason Codes</div>
       </div>
       {/* NO RESULTS */}
       {filtered.length === 0 && (
@@ -51,7 +60,7 @@ export default function RiskApplicationsTable({
         <div
           key={app.id}
           onClick={() => onSelect(app)}
-          className="grid grid-cols-4 px-6 py-4 border-t border-gray-100 hover:bg-blue-50 cursor-pointer transition"
+          className="grid grid-cols-5 px-6 py-4 border-t border-gray-100 hover:bg-blue-50 cursor-pointer transition"
         >
           <div>{app.id}</div>
           <div>{app.client}</div>
@@ -65,6 +74,33 @@ export default function RiskApplicationsTable({
             </span>
           </div>
           <div className="font-semibold">{app.score}</div>
+
+          {/* REASON CODE */}
+          <div>
+            {app.reasonCodes?.length > 0 ? (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <span className="text-blue-600 underline cursor-help">
+                      {app.reasonCodes[0]}
+                      {app.reasonCodes.length > 1 && " + more"}
+                    </span>
+                  </TooltipTrigger>
+
+                  <TooltipContent className="max-w-xs p-3 text-sm bg-white shadow-lg border rounded-md ">
+                    <div>Reason Codes:</div>
+                    {app.reasonCodes.map((code, index) => (
+                      <div key={index} className="mb-1 text-gray-500">
+                        <strong>{code}</strong> - {reasonCodeMap[code]}
+                      </div>
+                    ))}
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            ) : (
+              <span className="text-blue-600">-</span>
+            )}
+          </div>
         </div>
       ))}
     </div>
