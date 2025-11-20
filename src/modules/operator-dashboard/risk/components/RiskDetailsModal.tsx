@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import RiskActionButtons from "./RiskActionButtons";
 
 interface Props {
@@ -54,4 +55,8 @@ export default function RiskDetailsModal({
       </div>
     </div>
   );
+=======
+export default function RiskDetailsModal() {
+  return <div></div>;
+>>>>>>> d3567ae (Added risk dashboard components +filters)
 }
