@@ -1,3 +1,5 @@
+import Button from "../../components/ui/Button";
+
 interface Props {
   onApprove: () => void;
   onReject: () => void;
@@ -11,24 +13,15 @@ export default function RiskActionButtons({
 }: Props) {
   return (
     <div className="flex justify-center gap-3 mt-6">
-      <button
-        className="px-4 py-2 bg-green-600 text-whitw rounded-xl hover:bg-green-700 transition"
-        onClick={onApprove}
-      >
+      <Button onClick={onApprove} color="green">
         Aproba
-      </button>
-      <button
-        className="px-4 py-2 bg-red-600 text-whitw rounded-xl hover:bg-red-700 transition"
-        onClick={onReject}
-      >
+      </Button>
+      <Button onClick={onReject} color="red">
         Respinge
-      </button>
-      <button
-        className="px-4 py-2 bg-yellow-600 text-whitw rounded-xl hover:bg-yellow-700 transition"
-        onClick={onRequestDocs}
-      >
+      </Button>
+      <Button onClick={onRequestDocs} color="yellow">
         Cere Documente
-      </button>
+      </Button>
     </div>
   );
 }

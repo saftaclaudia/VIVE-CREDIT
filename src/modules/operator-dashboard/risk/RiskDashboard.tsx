@@ -16,8 +16,8 @@ export default function RiskDashboard() {
     );
   }
   return (
-    <div className="p-6 ">
-      <h1 className="text-xl font-semibold text-blue-500 mb-4 text-start">
+    <div className=" flex flex-col flex-1 w-full h-full p-6 ">
+      <h1 className="text-xl font-semibold text-blue-500 mb-4 mt-2 text-start">
         Risk Dashboard
       </h1>
       <RiskKpiCards />
@@ -31,6 +31,7 @@ export default function RiskDashboard() {
       {selectedApp && (
         <RiskDetailsModal
           application={selectedApp}
+          isOpen={!!selectedApp}
           onClose={() => setSelectedApp(null)}
           onApprove={() => updateStatus(selectedApp.id, "approved")}
           onReject={() => updateStatus(selectedApp.id, "rejected")}

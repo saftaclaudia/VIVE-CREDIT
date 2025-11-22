@@ -6,13 +6,11 @@ import LoanPage from "@/modules/dashboard/pages/LoanPage";
 import PaymentsPage from "@/modules/dashboard/pages/PaymentsPage";
 import DocumentsPage from "@/modules/dashboard/pages/DocumentsPage";
 import { RiskDashboard } from "@modules/operator-dashboard/risk";
+import OperatorDashboardLayout from "@/modules/operator-dashboard/layout/OperatorDashboardLayout";
 
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Risk Dashboard */}
-      <Route path="/risk" element={<RiskDashboard />} />
-
       {/* Root */}
       <Route path="/" element={<div />} />
 
@@ -25,7 +23,13 @@ const AppRoutes = () => {
       <Route path="/dashboard/loan" element={<LoanPage />} />
       <Route path="/dashboard/payments" element={<PaymentsPage />} />
       <Route path="/dashboard/documents" element={<DocumentsPage />} />
-      <Route path="/risk" element={<RiskDashboard />} />
+
+      {/* OPERATOR DASHBOARD SALES/RISK/COLLENTIONS */}
+      <Route path="/operator" element={<OperatorDashboardLayout />}>
+        {/* <Route path="sales" element={<SalesDashboard />} /> */}
+        <Route path="risk" element={<RiskDashboard />} />
+        {/* <Route path="collections" element={<Collectionsashboard />} /> */}
+      </Route>
 
       {/* Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />

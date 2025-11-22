@@ -1,7 +1,9 @@
+import Modal from "../../components/ui/Modal";
 import RiskActionButtons from "./RiskActionButtons";
 
 interface Props {
   application: any;
+  isOpen: boolean;
   onClose: () => void;
   onApprove: () => void;
   onReject: () => void;
@@ -10,17 +12,20 @@ interface Props {
 
 export default function RiskDetailsModal({
   application,
+  isOpen,
   onClose,
   onApprove,
   onReject,
   onRequestDocs,
 }: Props) {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="relative bg-white rounded-2xl p-6 shadow-lg w-[480px]">
-        <h2 className="text-xl font-semibold mb-2">
-          Detalii aplicatie: {application.id}
-        </h2>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={`Detalii aplicatie : ${application.id}`}
+      width="w-[480px]"
+    >
+      <div className="space-y-2">
         <p>
           <strong>Client:</strong> {application.client}
         </p>
@@ -30,28 +35,22 @@ export default function RiskDetailsModal({
         <p>
           <strong>Status:</strong> {application.status}
         </p>
-
-        <RiskActionButtons
-          onApprove={() => {
-            onApprove();
-            onClose();
-          }}
-          onReject={() => {
-            onReject();
-            onClose();
-          }}
-          onRequestDocs={() => {
-            onRequestDocs();
-            onClose();
-          }}
-        />
-        <button
-          className="absolute top-3 right-3 text-grey-500 hover:text-red-600 text-2xl"
-          onClick={onClose}
-        >
-          x
-        </button>
       </div>
-    </div>
+
+      <RiskActionButtons
+        onApprove={() => {
+          onApprove();
+          onClose();
+        }}
+        onReject={() => {
+          onReject();
+          onClose();
+        }}
+        onRequestDocs={() => {
+          onRequestDocs();
+          onClose();
+        }}
+      />
+    </Modal>
   );
 }
