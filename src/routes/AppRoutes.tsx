@@ -15,22 +15,22 @@ const AppRoutes = () => {
   return (
     <Routes>
       {/* Root */}
-      <Route path='/' element={<div />} />
+      <Route path="/" element={<div />} />
 
       {/* Onboarding */}
-      <Route path='/onboarding' element={<OnboardingPage />} />
-      <Route path='/onboarding/success' element={<SuccessPage />} />
+      <Route path="/onboarding" element={<OnboardingPage />} />
+      <Route path="/onboarding/success" element={<SuccessPage />} />
 
       {/* Dashboard */}
-      <Route path='/dashboard' element={<DashboardPage />} />
-      <Route path='/dashboard/loan' element={<LoanPage />} />
-      <Route path='/dashboard/payments' element={<PaymentsPage />} />
-      <Route path='/dashboard/documents' element={<DocumentsPage />} />
+      <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/dashboard/loan" element={<LoanPage />} />
+      <Route path="/dashboard/payments" element={<PaymentsPage />} />
+      <Route path="/dashboard/documents" element={<DocumentsPage />} />
 
       {/* OPERATOR DASHBOARD SALES/RISK/COLLECTIONS */}
-      <Route path='/operator' element={<OperatorDashboardLayout />}>
+      <Route path="/operator" element={<OperatorDashboardLayout />}>
         <Route index element={<OperatorDashboardPage />} />
-        <Route path='risk' element={<RiskPage />} />
+        <Route path="risk" element={<RiskPage />} />
         {/* <Route path="sales" element={<SalesPage />} /> */}
         {/* <Route path="collection" element={<CollectionPage />} /> */}
       </Route>
@@ -39,7 +39,7 @@ const AppRoutes = () => {
       {/* <Route path='/policy-engine' element={<PolicyEnginePage />} /> */}
 
       {/* Audit Dashboard */}
-      <Route path='/audit' element={<AuditDashboard />} />
+      <Route path="/audit" element={<AuditDashboard />} />
     </Routes>
   );
 };
