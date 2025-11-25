@@ -18,18 +18,18 @@ const AppRoutes = () => {
     <Routes>
       {/* Root */}
       <Route path="/" element={<div />} />
-      
+
       {/* Onboarding */}
       <Route path="/onboarding" element={<OnboardingPage />} />
       <Route path="/onboarding/success" element={<SuccessPage />} />
-      
+
       {/* Dashboard */}
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/dashboard/loan" element={<LoanPage />} />
       <Route path="/dashboard/payments" element={<PaymentsPage />} />
       <Route path="/dashboard/documents" element={<DocumentsPage />} />
       <Route path="/dashboard/loan-form" element={<LoanForm />} />
-      
+
       {/* OPERATOR DASHBOARD SALES/RISK/COLLECTIONS */}
       <Route path="/operator" element={<OperatorDashboardLayout />}>
         <Route index element={<OperatorDashboardPage />} />
@@ -37,12 +37,12 @@ const AppRoutes = () => {
         {/* <Route path="sales" element={<SalesPage />} /> */}
         {/* <Route path="collection" element={<CollectionPage />} /> */}
       </Route>
-      
+
       {/* Policy Engine / Decision Engine */}
       <Route path="/policy-engine" element={<PolicyEnginePage />} />
       <Route path="/decision-engine" element={<DecisionPage />} />
       <Route path="/audit" element={<AuditDashboard />} />
-      
+
       {/* Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
