@@ -8,6 +8,7 @@ import SuccessPage from "@/modules/onboarding/pages/SuccessPage";
 import OperatorDashboardLayout from "@/modules/operator-dashboard/layout/OperatorDashboardLayout";
 import OperatorDashboardPage from "@/modules/operator-dashboard/pages/OperatorDasboardPage";
 import RiskPage from "@/modules/operator-dashboard/pages/RiskPage";
+import LoanForm from "@/pages/loan/LoanForm";
 // import PolicyEnginePage from "@/modules/policy-engine/PolicyEnginePage";
 import { Route, Routes } from "react-router-dom";
 
@@ -26,6 +27,7 @@ const AppRoutes = () => {
       <Route path="/dashboard/loan" element={<LoanPage />} />
       <Route path="/dashboard/payments" element={<PaymentsPage />} />
       <Route path="/dashboard/documents" element={<DocumentsPage />} />
+      <Route path="/loan-form" element={<LoanForm />} />
 
       {/* OPERATOR DASHBOARD SALES/RISK/COLLECTIONS */}
       <Route path="/operator" element={<OperatorDashboardLayout />}>
