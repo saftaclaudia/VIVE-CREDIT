@@ -1,6 +1,6 @@
 import DashboardLayout from "../layout/DashboardLayout";
 import { paymentsMock } from "../mock/paymentsMock";
-import PaymentFilters from "../components/PaymentFilters";
+import PaymentFilters from "../components/payments/PaymentFilters";
 
 export default function PaymentsPage() {
   return (

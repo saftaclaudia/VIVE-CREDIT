@@ -6,7 +6,7 @@ import {
   Landmark,
   Wallet,
 } from "lucide-react";
-import type { PaymentItem } from "../types/payments";
+import type { PaymentItem } from "@/modules/dashboard/types/payments";
 
 interface Props {
   payments: PaymentItem[];

@@ -3,7 +3,7 @@ import type {
   PaymentItem,
   PaymentStatus,
   PaymentMethod,
-} from "../types/payments";
+} from "@/modules/dashboard/types/payments";
 import PaymentListCard from "./PaymentListCard";
 
 interface Props {
