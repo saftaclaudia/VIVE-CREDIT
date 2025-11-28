@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import RiskFiltersBar from "../components/RiskFiltersBar";
 import RiskDetailsModal from "../components/RiskDetailsModal";
 import { mockRiskApp } from "../mock-data";
@@ -28,22 +28,24 @@ export default function RiskDashboard() {
   const [filters, setFilters] = useState({ status: "", search: "" });
   const [selectedApp, setSelectedApp] = useState<RiskApplication | null>(null);
 
-  // update application status
+  // Update application status
   function updateStatus(id: string, newStatus: string) {
     setApplications((prev) =>
       prev.map((app) => (app.id === id ? { ...app, status: newStatus } : app))
     );
   }
-  //filtered application
-  const filteredApplications = applications.filter((app) => {
-    const matchesStatus = !filters.status || app.status === filters.status;
-    const matchesSearch =
-      !filters.search ||
-      app.client.toLowerCase().includes(filters.search.toLowerCase());
-    return matchesSearch && matchesStatus;
-  });
+  //Filtered application
+  const filteredApplications = useMemo(() => {
+    return applications.filter((app) => {
+      const matchesStatus = !filters.status || app.status === filters.status;
+      const matchesSearch =
+        !filters.search ||
+        app.client.toLowerCase().includes(filters.search.toLowerCase());
+      return matchesSearch && matchesStatus;
+    });
+  }, [applications, filters]);
 
-  // table columns
+  // Table columns
   const columns: Column<RiskApplication>[] = [
     { key: "id", label: "ID Aplicatie" },
     { key: "client", label: "Client" },
@@ -112,7 +114,7 @@ export default function RiskDashboard() {
       <h1 className="text-xl font-semibold text-blue-500 mb-4 mt-2 text-start">
         Risk Dashboard
       </h1>
-      <RiskKpiCards />
+      <RiskKpiCards applications={applications} />
       <RiskFiltersBar filters={filters} onChange={setFilters} />
       <ApplicationTable
         data={filteredApplications}
@@ -121,7 +123,7 @@ export default function RiskDashboard() {
         onRowClick={setSelectedApp}
         noResultsText="Nicio aplicatie gasita"
       />
-
+      {/* Modal application details */}
       {selectedApp && (
         <RiskDetailsModal
           application={selectedApp}
@@ -129,7 +131,7 @@ export default function RiskDashboard() {
           onClose={() => setSelectedApp(null)}
           onApprove={() => updateStatus(selectedApp.id, "approved")}
           onReject={() => updateStatus(selectedApp.id, "rejected")}
-          onRequestDocs={() => updateStatus(selectedApp.id, "manual_reviw")}
+          onRequestDocs={() => updateStatus(selectedApp.id, "manual_review")}
         />
       )}
     </div>

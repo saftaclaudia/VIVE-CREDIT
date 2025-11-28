@@ -1,5 +1,5 @@
 import UiCard from "../../../components/ui/UiCard";
-import { mockRiskApp } from "../mock-data";
+
 import {
   CheckCircle,
   XCircle,
@@ -7,17 +7,22 @@ import {
   AlertTriangle,
   Clock,
 } from "lucide-react";
+import type { RiskApplication } from "../pages/RiskDashboard";
 
-export default function RiskKpiCards() {
-  const total = mockRiskApp.length;
-  const approved = mockRiskApp.filter(
+interface Props {
+  applications: RiskApplication[];
+}
+
+export default function RiskKpiCards({ applications }: Props) {
+  const total = applications.length;
+  const approved = applications.filter(
     (app) => app.status === "approved"
   ).length;
-  const rejected = mockRiskApp.filter(
+  const rejected = applications.filter(
     (app) => app.status === "rejected"
   ).length;
-  const pending = mockRiskApp.filter((app) => app.status === "pending").length;
-  const manual = mockRiskApp.filter(
+  const pending = applications.filter((app) => app.status === "pending").length;
+  const manual = applications.filter(
     (app) => app.status === "manual_review"
   ).length;
 
