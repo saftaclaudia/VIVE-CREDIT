@@ -53,26 +53,35 @@ export default function RiskDashboard() {
       key: "status",
       label: "Status",
       render: (app) => {
-        const getStatusColor = (status: string) => {
+        const getStatusStyle = (status: string) => {
           switch (status) {
             case "approved":
-              return "text-green-600 bg-green-100";
+              return "text-green-700 bg-green-100";
             case "rejected":
-              return "text-red-600 bg-red-100";
+              return "text-red-700 bg-red-100";
             case "manual_review":
-              return "text-yellow-600 bg-yellow-100";
+              return "text-yellow-700 bg-yellow-100";
+            case "documents_requested":
+              return "text-indigo-700 bg-indigo-100";
             case "pending":
             default:
-              return "text-blue-600 bg-blue-100";
+              return "text-blue-700 bg-blue-100";
           }
         };
+        // transfor text status
+        const formatStatus = (status: string) =>
+          status
+            .split("_")
+            .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+            .join(" ");
+
         return (
           <span
-            className={`px-2 py-1 text-xs rounded-lg ${getStatusColor(
+            className={`px-2 py-1 text-xs rounded-lg  font-medium ${getStatusStyle(
               app.status
             )}`}
           >
-            {app.status.replace("_", " ")}
+            {formatStatus(app.status)}
           </span>
         );
       },
@@ -129,9 +138,22 @@ export default function RiskDashboard() {
           application={selectedApp}
           isOpen={!!selectedApp}
           onClose={() => setSelectedApp(null)}
-          onApprove={() => updateStatus(selectedApp.id, "approved")}
-          onReject={() => updateStatus(selectedApp.id, "rejected")}
-          onRequestDocs={() => updateStatus(selectedApp.id, "manual_review")}
+          onApprove={() => {
+            updateStatus(selectedApp.id, "approved");
+            setSelectedApp(null);
+          }}
+          onReject={() => {
+            updateStatus(selectedApp.id, "rejected");
+            setSelectedApp(null);
+          }}
+          onManualReview={() => {
+            updateStatus(selectedApp.id, "manual_review");
+            setSelectedApp(null);
+          }}
+          onRequestDocs={() => {
+            updateStatus(selectedApp.id, "documents_requested");
+            setSelectedApp(null);
+          }}
         />
       )}
     </div>

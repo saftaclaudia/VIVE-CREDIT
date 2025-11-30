@@ -15,6 +15,7 @@ export default function RiskFiltersBar({ filters, onChange }: Props) {
     { label: "In aspteptare", value: "pending" },
     { label: "Aprobate", value: "approved" },
     { label: "Respinse", value: "rejected" },
+    { label: "Request documents", value: "documents_requested" },
     { label: "Manual review", value: "manual_review" },
   ];
 

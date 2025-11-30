@@ -35,38 +35,30 @@ export default function Modal({
   return (
     <div
       className={`
-      fixed inset-0 z-50 
-      flex items-center justify-center
-      p-4
-      bg-black/40 backdrop-blur-sm
-      transition-opacity duration-200
-      ${isOpen ? "opacity-100" : "opacity-0"}
+        fixed inset-0 z-50 flex items-center justify-center p-4
+        bg-black/40 backdrop-blur-sm
+        transition-opacity duration-200
+        ${isOpen ? "opacity-100" : "opacity-0"}
       `}
     >
       <div
         className={`
-        relative w-full ${width}
-        bg-white dark:bg-gray-900
-        rounded-2xl shadow-2xl
-        border border-gray-200 dark:border-gray-700
-
-        transform transition-all duration-200
-        ${isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"}
-
-        ${className}
+          relative w-full ${width} bg-white dark:bg-gray-900
+          rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700
+          transform transition-all duration-200
+          ${isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"}
+          ${className}
         `}
       >
         {/* Header */}
         {(title || icon) && (
           <div className="flex items-center gap-3 px-6 py-4 border-b border-gray-200 dark:border-gray-700">
             {icon && <div className="text-blue-600 text-2xl">{icon}</div>}
-
             <h2
               className={`text-xl font-semibold text-gray-800 dark:text-gray-100 ${titleClassName}`}
             >
               {title}
             </h2>
-
             <button
               onClick={onClose}
               className="ml-auto text-gray-400 hover:text-red-500 text-xl font-bold transition"
@@ -82,9 +74,11 @@ export default function Modal({
         </div>
 
         {/* Footer */}
-        <div className="border-t bg-white dark:bg-gray-900 p-4 sticky bottom-0 z-10">
-          {footer}
-        </div>
+        {footer && (
+          <div className="sticky bottom-0 z-10 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-4">
+            {footer}
+          </div>
+        )}
       </div>
     </div>
   );
