@@ -1,10 +1,10 @@
-import { useLocation } from "react-router-dom";
-import AppRoutes from "./routes/AppRoutes";
+import { useLocation } from 'react-router-dom';
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
   const location = useLocation();
 
-  const showHeader = location.pathname === "/";
+  const showHeader = location.pathname === '/';
 
   return (
     <div>

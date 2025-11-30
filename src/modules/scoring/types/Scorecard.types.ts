@@ -6,6 +6,8 @@ export const variableOptions = [
   'kyc',
 ] as const;
 
+export const typesOptions = ['numeric', 'enum', 'boolean'] as const;
+
 export type Rule = {
   condition: string;
   score: number;

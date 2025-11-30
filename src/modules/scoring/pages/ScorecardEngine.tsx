@@ -7,8 +7,8 @@ export const ScorecardEngine: React.FC = () => {
   const [scoreValue, setScoreValue] = useState('');
   const [error, setError] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [editingVariable, setEditingVariable] = useState<Variable | null>(null);
   const [variables, setVariables] = useState<Variable[]>([]);
+  const [editingVariable, setEditingVariable] = useState<Variable | null>(null);
 
   const handleScoreValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -43,6 +43,7 @@ export const ScorecardEngine: React.FC = () => {
     } else {
       setVariables([...variables, variable]);
     }
+
     setShowModal(false);
     setEditingVariable(null);
   };
@@ -55,7 +56,6 @@ export const ScorecardEngine: React.FC = () => {
   const handleDeleteVariable = (id: string) => {
     setVariables(variables.filter((v) => v.id !== id));
   };
-
   const totalWeight = variables.reduce((sum, v) => sum + v.weight, 0);
   const isWeightValid = totalWeight.toFixed(2) === '1.00';
 
@@ -101,63 +101,64 @@ export const ScorecardEngine: React.FC = () => {
             Adaugă variabilă
           </button>
           <button
-            disabled={variables.length === 0 || !isWeightValid}
+            disabled={!isWeightValid}
             className="bg-blue-500 px-4 py-2 disabled:bg-gray-400 text-white rounded-lg shadow-md hover:bg-blue-500/90"
           >
             Salvează
           </button>
         </div>
-
-        {variables.length === 0 ? (
-          <p className="text-gray-500 text-center py-8">
-            Nicio variabilă definită încă.
-          </p>
-        ) : (
-          <table className="w-full text-left border border-gray-200 rounded-lg overflow-hidden mt-6">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="p-3 border-b">Nume variabilă</th>
-                <th className="p-3 border-b">Tip</th>
-                <th className="p-3 border-b">Pondere</th>
-                <th className="p-3 border-b">Nr. reguli</th>
-                <th className="p-3 border-b text-center">Activă</th>
-                <th className="p-3 border-b text-center">Acțiuni</th>
-              </tr>
-            </thead>
-            <tbody>
-              {variables.map((v) => (
-                <tr key={v.id} className="hover:bg-gray-50 transition">
-                  <td className="p-3 border-b font-medium">{v.name}</td>
-                  <td className="p-3 border-b capitalize">{v.type}</td>
-                  <td className="p-3 border-b">{v.weight.toFixed(2)}</td>
-                  <td className="p-3 border-b">{v.rules.length}</td>
-                  <td className="p-3 border-b text-center">
-                    {v.active ? 'DA' : 'NU'}
-                  </td>
-                  <td className="p-3 border-b text-center space-x-2">
-                    <button
-                      onClick={() => handleEditVariable(v)}
-                      className="border border-gray-400 rounded-md py-1 px-3 hover:text-gray-600 text-sm"
-                    >
-                      Editează
-                    </button>
-                    <button
-                      onClick={() => handleDeleteVariable(v.id)}
-                      className="text-red-600 border border-gray-400 rounded-md py-1 px-3 hover:text-red-400 text-sm"
-                    >
-                      Șterge
-                    </button>
-                  </td>
+        {variables.length !== 0 ? (
+          <div>
+            <table className="w-full text-left border border-gray-200 rounded-lg overflow-hidden mt-6">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="p-3 border">Nume variabilă</th>
+                  <th className="p-3 border">Tip</th>
+                  <th className="p-3 border">Pondere</th>
+                  <th className="p-3 border">Nr. reguli</th>
+                  <th className="p-3 border text-center">Activă</th>
+                  <th className="p-3 border text-center">Acțiuni</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {variables.map((v) => (
+                  <tr key={v.id} className="hover:bg-gray-50 transition">
+                    <td className="p-3 border font-medium ">{v.name}</td>
+                    <td className="p-3 border "> {v.type}</td>
+                    <td className="p-3 border">{v.weight.toFixed(2)}</td>
+                    <td className="p-3 border">{v.rules.length}</td>
+                    <td className="p-3 border text-center">
+                      {v.active ? 'Da' : 'Nu'}
+                    </td>
+                    <td className="p-3 border text-center space-x-2">
+                      <button
+                        className="border border-gray-400 rounded-md py-1 px-3 hover:text-gray-600 text-sm"
+                        onClick={() => handleEditVariable(v)}
+                      >
+                        Editează
+                      </button>
+
+                      <button
+                        className="text-red-600 border border-gray-400 rounded-md py-1 px-3 hover:text-red-400 text-sm"
+                        onClick={() => handleDeleteVariable(v.id)}
+                      >
+                        Șterge
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          ''
         )}
       </div>
       {showModal && (
         <ScorecardVariablesModal
           onClose={() => setShowModal(false)}
           onSave={(variable) => handleAddOrUpdateVariable(variable)}
+          initialVariable={editingVariable}
         />
       )}
     </>
