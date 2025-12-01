@@ -38,14 +38,14 @@ export const mockRiskApp = [
     id: "R006",
     client: "Marius Marius",
     score: 300,
-    status: "regected",
+    status: "documents_requested",
     reasonCodes: ["RC023"],
   },
   {
     id: "R007",
     client: "Ion Ion",
     score: 100,
-    status: "rejected",
+    status: "manual_review",
     reasonCodes: ["RC017", "RC045"], //<300 more reason codes
   },
   {
@@ -59,7 +59,7 @@ export const mockRiskApp = [
     id: "R009",
     client: "Ion Ion",
     score: 100,
-    status: "pending",
+    status: "documents_requested",
     reasonCodes: ["RC017", "RC045"], //<300 more reason codes
   },
   {
