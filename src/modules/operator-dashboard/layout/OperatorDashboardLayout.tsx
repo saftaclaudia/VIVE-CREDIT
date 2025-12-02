@@ -110,7 +110,7 @@ export default function OperatorDashboardLayout() {
       </aside>
 
       {/* Content */}
-      <main className="flex-1 p-8 pt-20 md:pt-8 dark:bg-gray-900 dark:text-gray-100">
+      <main className="flex-1 px-4 pt-20 md:px-8 md:pt-8 dark:bg-gray-900 dark:text-gray-100">
         <Outlet />
       </main>
     </div>
