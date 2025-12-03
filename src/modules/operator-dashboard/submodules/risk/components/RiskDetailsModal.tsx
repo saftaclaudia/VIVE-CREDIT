@@ -3,7 +3,6 @@ import Modal from "../../../components/ui/Modal";
 import Button from "@/modules/operator-dashboard/components/ui/Button";
 import type { RiskApplication } from "../pages/RiskDashboard";
 import { ShieldCheck } from "lucide-react";
-import { useRef, useState } from "react";
 
 interface Props {
   application: RiskApplication;
