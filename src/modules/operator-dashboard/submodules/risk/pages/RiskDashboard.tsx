@@ -99,6 +99,13 @@ export default function RiskDashboard() {
           Medium: "text-yellow-700 bg-yellow-100",
           High: "text-red-700 bg-red-100",
         };
+        // transfor text status
+        const formatStatus = (status: string) =>
+          status
+            .split("_")
+            .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+            .join(" ");
+
         return (
           <span
             className={`px-2 py-1 rounded-full text-xs font-medium ${map[level]}`}

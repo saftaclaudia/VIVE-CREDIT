@@ -3,6 +3,7 @@ import Modal from "../../../components/ui/Modal";
 import Button from "@/modules/operator-dashboard/components/ui/Button";
 import type { RiskApplication } from "../pages/RiskDashboard";
 import { ShieldCheck } from "lucide-react";
+import { useRef, useState } from "react";
 
 interface Props {
   application: RiskApplication;
@@ -46,6 +47,8 @@ export default function RiskDetailsModal({
 
   const availableDocs = ["CI", "Venituri", "Contract muncă", "Altele"];
 
+  const standardDocs = ["CI", "Venituri", "Contract"];
+
   return (
     <Modal
       isOpen={isOpen}
@@ -81,7 +84,7 @@ export default function RiskDetailsModal({
           </div>
         </section>
 
-        {/* FINANCIAL INFO */}
+        {/* Financial Info */}
         <section className="p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
           <h3 className="font-semibold text-lg mb-3 text-gray-700 dark:text-gray-200">
             Date financiare
@@ -102,7 +105,7 @@ export default function RiskDetailsModal({
           </div>
         </section>
 
-        {/* REASON CODES */}
+        {/* Reason Codes */}
         {application.reasonCodes?.length > 0 && (
           <section className="p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
             <h3 className="font-semibold text-lg mb-3 text-gray-700 dark:text-gray-200">
