@@ -83,10 +83,24 @@ export default function OperatorDashboardLayout() {
             <span className="text-gray-700 dark:text-gray-300">Close</span>
           </button>
 
-          {/* Header */}
-          <h2 className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-6 hidden md:block">
-            Vive Credit
-          </h2>
+          {/* Header + Theme Toggle (desktop only) */}
+          <div className="hidden md:flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+              Vive Credit
+            </h2>
+
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 
+      dark:bg-gray-700 dark:hover:bg-gray-600 transition"
+            >
+              {theme === "light" ? (
+                <Sun size={20} className="text-blue-500" />
+              ) : (
+                <Moon size={20} className="text-blue-300" />
+              )}
+            </button>
+          </div>
 
           {/* Navigation */}
           <nav className="space-y-2">
