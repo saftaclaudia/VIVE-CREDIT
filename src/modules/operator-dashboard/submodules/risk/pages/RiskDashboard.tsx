@@ -99,12 +99,6 @@ export default function RiskDashboard() {
           Medium: "text-yellow-700 bg-yellow-100",
           High: "text-red-700 bg-red-100",
         };
-        // transform text status
-        const formatStatus = (status: string) =>
-          status
-            .split("_")
-            .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-            .join(" ");
 
         return (
           <span
@@ -188,7 +182,7 @@ export default function RiskDashboard() {
             }}
             className="px-2 py-1 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700"
           >
-            Detalii
+            Review
           </button>
         </div>
       ),
@@ -214,10 +208,10 @@ export default function RiskDashboard() {
         />
       </div>
 
-      {selectedApp && (
+      {selectedApp !== null && (
         <RiskDetailsModal
           application={selectedApp}
-          isOpen={!!selectedApp}
+          isOpen={selectedApp !== null}
           onClose={() => setSelectedApp(null)}
           onApprove={(id) => {
             updateStatus(id, "approved");

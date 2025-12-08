@@ -2,7 +2,8 @@ import { useRef, useState } from "react";
 import Modal from "../../../components/ui/Modal";
 import Button from "@/modules/operator-dashboard/components/ui/Button";
 import type { RiskApplication } from "../pages/RiskDashboard";
-import { ShieldCheck } from "lucide-react";
+import { ChevronDown, ShieldCheck } from "lucide-react";
+import { Menu } from "@headlessui/react";
 
 interface Props {
   application: RiskApplication;
@@ -58,7 +59,7 @@ export default function RiskDetailsModal({
       icon={<ShieldCheck className="w-6 h-6" />}
     >
       {/* Container cu scroll */}
-      <div className="flex flex-col gap-6 max-h-[60vh] overflow-y-auto pr-2 pb-4">
+      <div className="flex flex-col gap-6 pr-2 pb-4">
         {/* CLIENT INFO */}
         <section className="p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
           <h3 className="font-semibold text-lg mb-3 text-gray-700 dark:text-gray-200">
@@ -169,36 +170,111 @@ export default function RiskDetailsModal({
 
       {/* Sticky action bar la baza modalului */}
       <div className="sticky bottom-0 left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur border-t border-gray-200 dark:border-gray-700 p-4 flex flex-wrap items-center justify-end gap-2 z-20">
-        <Button
-          onClick={() => onReject(application.id)}
-          className="bg-red-600 sm:w-auto w-full"
-        >
-          Respinge
-        </Button>
-        <Button
-          onClick={() => onManualReview(application.id)}
-          className="bg-yellow-500 sm:w-auto w-full"
-        >
-          Manual Review
-        </Button>
-        <Button
-          onClick={() => handleScrollToDocs()}
-          className="bg-indigo-600 sm:w-auto w-full"
-        >
-          Solicită Documente
-        </Button>
-        <Button
-          onClick={() => onSendToAML(application.id)}
-          className="bg-purple-600 sm:w-auto w-full "
-        >
-          Trimite la AML
-        </Button>
-        <Button
-          onClick={() => onApprove(application.id)}
-          className="bg-green-600 sm:w-auto w-full"
-        >
-          Aprobă
-        </Button>
+        {/* Desktop buttons */}
+        <div className="hidden sm:flex gap-2 justify-end flex-wrap">
+          <Button
+            onClick={() => onApprove(application.id)}
+            className="bg-blue-600 sm:w-auto w-full"
+          >
+            Aprobă
+          </Button>
+          <Button
+            onClick={() => onReject(application.id)}
+            className="bg-blue-600 sm:w-auto w-full"
+          >
+            Respinge
+          </Button>
+
+          <Button
+            onClick={() => onManualReview(application.id)}
+            className="bg-blue-600 sm:w-auto w-full"
+          >
+            Manual Review
+          </Button>
+          <Button
+            onClick={() => handleScrollToDocs()}
+            className="bg-blue-600 sm:w-auto w-full"
+          >
+            Solicită Documente
+          </Button>
+          <Button
+            onClick={() => onSendToAML(application.id)}
+            className="bg-blue-600 sm:w-auto w-full "
+          >
+            Trimite la AML
+          </Button>
+        </div>
+
+        {/* Mobile dropdown */}
+        <div className=" sm:hidden w-full mt-2">
+          <Menu as="div" className="relative w-full">
+            <Menu.Button className="w-full bg-blue-600 p-2 rounded-md text-white flex justify-between items-center">
+              Actions <ChevronDown className="w-4 h-4" />
+            </Menu.Button>
+            <Menu.Items className="absolute right-0 mt-2 w-full bg-white dark:bg-gray-700 rounded-md shadow-lg z-50 flex flex-col">
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    onClick={() => onApprove(application.id)}
+                    className={`w-full text-left p-2 ${
+                      active ? "bg-blue-100 dark:bg-gray-700" : ""
+                    }`}
+                  >
+                    Aproba
+                  </button>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    onClick={() => onReject(application.id)}
+                    className={`w-full text-left p-2 ${
+                      active ? "bg-blue-100 dark:bg-gray-700" : ""
+                    }`}
+                  >
+                    Respinge
+                  </button>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    onClick={() => onManualReview(application.id)}
+                    className={`w-full text-left p-2 ${
+                      active ? "bg-blue-100 dark:bg-gray-700" : ""
+                    }`}
+                  >
+                    Manual Review
+                  </button>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    onClick={() => handleScrollToDocs()}
+                    className={`w-full text-left p-2 ${
+                      active ? "bg-blue-100 dark:bg-gray-700" : ""
+                    }`}
+                  >
+                    Solicita Documente
+                  </button>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    onClick={() => onSendToAML(application.id)}
+                    className={`w-full text-left p-2 ${
+                      active ? "bg-blue-100 dark:bg-gray-700" : ""
+                    }`}
+                  >
+                    Trimite in AML
+                  </button>
+                )}
+              </Menu.Item>
+            </Menu.Items>
+          </Menu>
+        </div>
       </div>
     </Modal>
   );
