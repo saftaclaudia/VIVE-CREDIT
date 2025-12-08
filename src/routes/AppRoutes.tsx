@@ -126,35 +126,11 @@ const AppRoutes = () => {
         <Route path="risk" element={<RiskPage />} />
         <Route path="sales" element={<SalesDashboard />} />
         <Route path="sales/:id" element={<ApplicationDetail />} />
+
+        <Route path="policy-engine" element={<PolicyEnginePage />} />
+        <Route path="decision-engine" element={<DecisionPage />} />
+        <Route path="scorecard" element={<ScorecardEngine />} />
       </Route>
-
-      {/* INTERNAL TOOLS */}
-      <Route
-        path="/policy-engine"
-        element={
-          <ProtectedRoute allowedRoles={["operator"]}>
-            <PolicyEnginePage />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/decision-engine"
-        element={
-          <ProtectedRoute allowedRoles={["operator"]}>
-            <DecisionPage />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/scorecard"
-        element={
-          <ProtectedRoute allowedRoles={["operator"]}>
-            <ScorecardEngine />
-          </ProtectedRoute>
-        }
-      />
 
       <Route
         path="/audit"
