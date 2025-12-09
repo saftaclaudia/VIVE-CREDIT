@@ -14,15 +14,15 @@ export default function SuccessPage() {
       className="
         min-h-screen flex items-center justify-center 
         bg-gradient-to-b from-blue-50 to-white 
-        dark:from-[#020617] dark:to-[#0a0f1f]
+        dark:bg-gradient-to-br dark:from-[#0b162f] dark:via-[#0f1c3d] dark:to-[#0a1124] dark:shadow-[0_0_80px_rgba(0,102,255,0.25)] dark:ring-1 dark:ring-blue-900/20
         px-4 py-10
       "
     >
       <Card
         className="
           w-full max-w-lg shadow-xl rounded-2xl p-6
-          bg-white dark:bg-[#0a0f1f]
-          border border-blue-100 dark:border-[#1c2a3a]
+          bg-white dark:bg-[#162233]
+          border border-blue-100 dark:border-[#1f2e44]
           text-gray-700 dark:text-[#c7d5ff]
         "
       >

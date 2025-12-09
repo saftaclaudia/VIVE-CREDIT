@@ -69,8 +69,8 @@ export default function AddressDataStep({
         className="
           w-full max-w-md mx-auto
           shadow-lg rounded-xl p-6
-          border border-blue-100 dark:border-[#1c2a3a]
-          bg-white dark:bg-[#0a0f1f]
+          border border-blue-100 dark:border-[#1f2e44]
+          bg-white dark:bg-[#162233]
           text-gray-900 dark:text-[#c7d5ff]
         "
       >

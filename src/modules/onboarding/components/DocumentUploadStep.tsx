@@ -230,7 +230,7 @@ export default function DocumentUploadStep({
 
   return (
     <div className="w-full p-4 bg-transparent">
-      <Card className="w-full max-w-md mx-auto shadow-lg border border-blue-100 dark:border-[#1c2a3a] bg-white dark:bg-[#0a0f1f] text-gray-900 dark:text-[#c7d5ff] rounded-2xl">
+      <Card className="w-full max-w-md mx-auto shadow-lg border border-blue-100 dark:border-[#1f2e44] bg-white dark:bg-[#162233] text-gray-900 dark:text-[#c7d5ff] rounded-2xl">
         <CardHeader>
           <CardTitle className="text-2xl font-semibold text-blue-700 dark:text-blue-400">
             Pasul 4 — Încărcare documente

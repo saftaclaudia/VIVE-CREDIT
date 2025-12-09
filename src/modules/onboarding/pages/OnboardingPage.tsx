@@ -111,24 +111,28 @@ export default function OnboardingPage() {
       className="
       min-h-screen flex flex-col items-center relative px-4 pt-16 pb-10
       bg-gradient-to-b from-blue-50 to-white
-      dark:bg-gradient-to-b dark:from-[#020617] dark:via-[#0a0f1f] dark:to-[#0b1120]
+      dark:bg-gradient-to-br dark:from-[#0b162f] dark:via-[#0f1c3d] dark:to-[#0a1124] dark:shadow-[0_0_80px_rgba(0,102,255,0.25)] dark:ring-1 dark:ring-blue-900/20
       transition-all duration-500
     "
     >
-      <div className="absolute top-4 right-4 flex gap-3 z-50">
-        <ThemeToggle />
-
+      <div className="absolute top-4 left-4 flex items-center gap-2 z-50">
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate(-1)}
           className="
-          px-4 py-2 text-sm rounded-md
-          bg-blue-600 text-white hover:bg-blue-700
-          dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-200
-          transition
-        "
+      flex items-center justify-center rounded-md transition
+      bg-blue-600 text-white hover:bg-blue-700
+      dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-200
+
+      w-8 h-8 text-lg
+      sm:w-10 sm:h-10 sm:text-xl
+    "
         >
-          Înapoi la Home
+          ‹
         </button>
+
+        <div className="scale-90 sm:scale-100">
+          <ThemeToggle />
+        </div>
       </div>
 
       <div className="w-full max-w-2xl mb-6">
@@ -244,8 +248,8 @@ export default function OnboardingPage() {
 
         {step === 5 && (
           <Card
-            className="shadow-lg border border-blue-100 dark:border-[#1c2a3a]
-             p-6 bg-white dark:bg-[#0a0f1f]
+            className="shadow-lg border border-blue-100 dark:border-[#1f2e44]
+             p-6 bg-white dark:bg-[#162233]
              text-gray-900 dark:text-[#c7d5ff] rounded-2xl"
           >
             <CardHeader>
