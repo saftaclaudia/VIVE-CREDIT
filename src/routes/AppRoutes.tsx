@@ -160,10 +160,9 @@ const AppRoutes = () => {
         <Route path="products-settings" element={<ProductSettingsPage />} />
       </Route>
 
-        <Route path="policy-engine" element={<PolicyEnginePage />} />
-        <Route path="decision-engine" element={<DecisionPage />} />
-        <Route path="scorecard" element={<ScorecardEngine />} />
-      </Route>
+      <Route path="policy-engine" element={<PolicyEnginePage />} />
+      <Route path="decision-engine" element={<DecisionPage />} />
+      <Route path="scorecard" element={<ScorecardEngine />} />
 
       <Route
         path="/audit"
