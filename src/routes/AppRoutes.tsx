@@ -192,6 +192,9 @@ const AppRoutes = () => {
         <Route path="sales" element={<SalesDashboard />} />
         <Route path="sales/:id" element={<ApplicationDetail />} />
         <Route path="products-settings" element={<ProductSettingsPage />} />
+        <Route path="policy-engine" element={<PolicyEnginePage />} />
+        <Route path="decision-engine" element={<DecisionPage />} />
+        <Route path="scorecard" element={<ScorecardEngine />} />
       </Route>
 
       {/* ENGINES */}
