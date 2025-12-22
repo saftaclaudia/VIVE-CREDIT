@@ -44,6 +44,8 @@ import ApplicationsPage from "@/modules/operator-dashboard/pages/ApplicationsPag
 import OperatorDashboardPage from "@/modules/operator-dashboard/pages/OperatorDasboardPage";
 import RiskPage from "@/modules/operator-dashboard/pages/RiskPage";
 import ApplicationDetail from "@/modules/operator-dashboard/submodules/sales/ApplicationDetail";
+import ProductSettingsPage from "@/modules/admin-products/pages/ProductSettingsPage";
+import ClientManagementPage from "@/modules/operator-dashboard/pages/ClientManagement";
 
 /* Engines */
 import { AuditDashboard } from "@/modules/admin-audit/AuditDashboard";
@@ -183,17 +185,20 @@ const AppRoutes = () => {
           <ProtectedRoute allowedRoles={["operator"]}>
             <OperatorDashboardLayout />
           </ProtectedRoute>
+          
         }
+        
       >
         <Route index element={<OperatorDashboardPage />} />
-        <Route path='risk' element={<RiskPage />} />
-        {/* <Route path='sales' element={<SalesDashboard />} /> */}
-        <Route path='sales/:id' element={<ApplicationDetail />} />
-        <Route path='applications' element={<ApplicationsPage />} />
-        <Route path='products-settings' element={<ProductSettingsPage />} />
-        <Route path='policy-engine' element={<PolicyEnginePage />} />
-        <Route path='decision-engine' element={<DecisionPage />} />
-        <Route path='scorecard' element={<ScorecardEngine />} />
+        <Route path="clients" element={<ClientManagementPage />} />
+        <Route path="risk" element={<RiskPage />} />
+        <Route path="sales" element={<SalesDashboard />} />
+        <Route path="sales/:id" element={<ApplicationDetail />} />
+        <Route path="applications" element={<ApplicationsPage />} />
+        <Route path="products-settings" element={<ProductSettingsPage />} />
+        <Route path="policy-engine" element={<PolicyEnginePage />} />
+        <Route path="decision-engine" element={<DecisionPage />} />
+        <Route path="scorecard" element={<ScorecardEngine />} />
       </Route>
 
       {/* ENGINES */}
