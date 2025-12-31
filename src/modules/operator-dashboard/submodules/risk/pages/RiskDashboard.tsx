@@ -75,11 +75,21 @@ export default function RiskDashboard() {
   }, [applications, filters]);
 
   const columns: Column<RiskApplication>[] = [
-    { key: "id", label: "ID" },
-    { key: "client", label: "Client" },
+    {
+      key: "id",
+      label: "ID",
+      className: "min-w-[80px]",
+    },
+
+    {
+      key: "client",
+      label: "Client",
+      className: "min-w-[120px] sm:min-w-[150px]",
+    },
     {
       key: "score",
       label: "Risk",
+      className: "min-w-[80px]",
       render: (app) => {
         const score = app.score ?? 0;
         const level = score >= 700 ? "Low" : score >= 400 ? "Medium" : "High";
@@ -88,7 +98,6 @@ export default function RiskDashboard() {
           Medium: "text-yellow-700 bg-yellow-100",
           High: "text-red-700 bg-red-100",
         };
-
         return (
           <span
             className={`px-2 py-1 rounded-full text-xs font-medium ${map[level]}`}
@@ -101,6 +110,7 @@ export default function RiskDashboard() {
     {
       key: "status",
       label: "Status",
+      className: "min-w-[100px]",
       render: (app) => {
         const styleMap: Record<string, string> = {
           approved: "text-green-700 bg-green-100",
@@ -129,6 +139,7 @@ export default function RiskDashboard() {
     {
       key: "reasonCodes",
       label: "Reason",
+      className: "hidden md:block min-w-[120px]",
       render: (app) => {
         if (!app.reasonCodes?.length)
           return <span className="text-blue-600 text-sm">-</span>;
@@ -156,12 +167,11 @@ export default function RiskDashboard() {
           </TooltipProvider>
         );
       },
-      className: "hidden md:block",
     },
-
     {
       key: "actions",
       label: "Acțiuni",
+      className: "min-w-[100px]",
       render: (app) => (
         <div className="flex items-center gap-2">
           <button
@@ -180,7 +190,7 @@ export default function RiskDashboard() {
 
   return (
     <div className="flex flex-col w-full max-w-7xl mx-auto">
-      <h1 className="text-xl font-semibold text-blue-500 mb-4 mt-2">
+      <h1 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-2">
         Risk Dashboard
       </h1>
 
@@ -192,15 +202,17 @@ export default function RiskDashboard() {
           data={filteredApplications}
           columns={columns}
           pageSize={8}
+          selectedRow={selectedApp}
+          getRowId={(app) => app.id}
           onRowClick={(app) => setSelectedApp(app)}
           noResultsText="Nicio aplicație găsită"
         />
       </div>
 
-      {selectedApp !== null && (
+      {selectedApp && (
         <RiskDetailsModal
           application={selectedApp}
-          isOpen={selectedApp !== null}
+          isOpen={!!selectedApp}
           onClose={() => setSelectedApp(null)}
           onApprove={(id) => {
             updateStatus(id, "approved");

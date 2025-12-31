@@ -16,9 +16,9 @@ export interface RiskApplication {
 
   income?: {
     amount: number;
-    employer: string;
-    contractType: string;
-    history: string[];
+    employer?: string;
+    contractType?: string;
+    history?: string[];
   };
 
   documents?: { name: string; url: string; uploadedAt: string }[];

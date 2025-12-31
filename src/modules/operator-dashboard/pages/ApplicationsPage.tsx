@@ -56,8 +56,7 @@ export default function ApplicationsPage() {
         app.id === selected.id
           ? {
               ...app,
-              client: selected.client,
-              status: selected.status,
+              ...selected,
             }
           : app
       )
@@ -82,6 +81,12 @@ export default function ApplicationsPage() {
       <ApplicationTable<RiskApplication>
         data={filteredApplications}
         pageSize={10}
+        selectedRow={selected}
+        getRowId={(app) => app.id}
+        onRowClick={(app) => {
+          setSelected(app);
+          setMode("view");
+        }}
         columns={[
           { key: "id", label: "ID", width: "150px" },
           { key: "client", label: "Client", width: "250px" },
@@ -146,38 +151,167 @@ export default function ApplicationsPage() {
         title="Application details"
       >
         {selected && (
-          <div className="space-y-2 text-sm text-gray-700 dark:text-gray-200">
-            <div>
-              <strong>ID:</strong> {selected.id}
-            </div>
-            <div>
-              <strong>Nume client:</strong> {selected.client}
+          <div className="space-y-6 text-sm text-gray-700 dark:text-gray-200">
+            {/* ID, Client, Status, Score */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <span className="font-medium">ID</span>
+                <p className="text-gray-600 dark:text-gray-400">
+                  {selected.id}
+                </p>
+              </div>
+              <div>
+                <span className="font-medium">Client</span>
+                <p> {selected.client}</p>
+              </div>
+              <div>
+                <span className="font-medium">Status</span>
+                <p
+                  className={`font-semibold ${
+                    selected.status === "approved"
+                      ? "text-green-600"
+                      : selected.status === "rejected"
+                      ? "text-red-600"
+                      : "text-yellow-600"
+                  }`}
+                >
+                  {selected.status}
+                </p>
+              </div>
+              <div>
+                <span className="font-medium">Scor</span>
+                <p>{selected.score}</p>
+              </div>
             </div>
 
+            {/* Credit */}
+            <div className="border-t pt-4">
+              <h3 className="font-semibold mb-2">Credit</h3>
+              <p>
+                <span className="font-medium">Suma solicitată:</span>{" "}
+                {selected.creditAmount.toLocaleString()} RON
+              </p>
+            </div>
+
+            {/* Income */}
             {selected.income && (
-              <div>
-                <strong>Income:</strong>{" "}
-                {selected.income.amount.toLocaleString()} RON
-              </div>
-            )}
-            {selected.income && (
-              <div>
-                <strong>Tip contract:</strong> {selected.income.contractType}
-              </div>
-            )}
-            {selected.income && (
-              <div>
-                <strong>Angajator:</strong> {selected.income.employer}
+              <div className="border-t pt-4">
+                <h3 className="font-semibold mb-2">Venit</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <p>
+                    <span className="font-medium">Valoare:</span>{" "}
+                    {selected.income.amount.toLocaleString()} RON
+                  </p>
+                  <p>
+                    <span className="font-medium">Angajator:</span>{" "}
+                    {selected.income.employer || "-"}
+                  </p>
+                  <p>
+                    <span className="font-medium">Tip contract:</span>{" "}
+                    {selected.income.contractType || "-"}
+                  </p>
+                </div>
               </div>
             )}
 
-            <div>
-              <strong>Credit solicitat:</strong>{" "}
-              {selected.creditAmount.toLocaleString()} RON
-            </div>
-            <div>
-              <strong>Status:</strong> {selected.status}
-            </div>
+            {/* KYC */}
+            {selected.kyc && (
+              <div className="border-t pt-4">
+                <h3 className="font-semibold mb-2">KYC</h3>
+                <p>
+                  <span className="font-medium">Status:</span>{" "}
+                  <span className="font-semibold">{selected.kyc.status}</span>
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
+                  <a
+                    className="text-blue-600 underline"
+                    href={selected.kyc.idFront}
+                    target="_blank"
+                  >
+                    ID Front
+                  </a>
+                  <a
+                    className="text-blue-600 underline"
+                    href={selected.kyc.idBack}
+                    target="_blank"
+                  >
+                    ID Back
+                  </a>
+                  <a
+                    className="text-blue-600 underline"
+                    href={selected.kyc.selfie}
+                    target="_blank"
+                  >
+                    Selfie
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {/* Reason Codes */}
+            {selected.reasonCodes?.length > 0 && (
+              <div className="border-t pt-4">
+                <h3 className="font-semibold mb-2">Reason Codes</h3>
+                <ul className="list-disc ml-5 space-y-1">
+                  {selected.reasonCodes.map((code) => (
+                    <li key={code}>{code}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Uploaded documents */}
+            {(selected.documents ?? []).length > 0 && (
+              <div className="border-t pt-4">
+                <h3 className="font-semibold mb-2">Documente încărcate</h3>
+                <ul className="space-y-2">
+                  {(selected.documents ?? []).map((doc) => (
+                    <li key={doc.name} className="flex justify-between">
+                      <a
+                        href={doc.url}
+                        target="_blank"
+                        className="text-blue-600 underline"
+                      >
+                        {doc.name}
+                      </a>
+                      <span className="text-xs text-gray-500">
+                        {doc.uploadedAt}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {/* Requested documents */}
+            {(selected.requestedDocuments ?? []).length > 0 && (
+              <div className="border-t pt-4">
+                <h3 className="font-semibold mb-2">Documente solicitate</h3>
+                <ul className="list-disc ml-5">
+                  {(selected.requestedDocuments ?? []).map((doc, i) => (
+                    <li key={i}>{doc}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* notes */}
+            {(selected.notes ?? []).length > 0 && (
+              <div className="border-t pt-4">
+                <h3 className="font-semibold mb-2">Note</h3>
+                <ul className="space-y-2">
+                  {(selected.notes ?? []).map((note, i) => (
+                    <li
+                      key={i}
+                      className="bg-gray-100 dark:bg-gray-700 p-2 rounded"
+                    >
+                      <p>{note.text}</p>
+                      <span className="text-xs text-gray-500">{note.time}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         )}
       </Modal>
@@ -198,11 +332,11 @@ export default function ApplicationsPage() {
                 setSelected(null);
               }}
               className="
-                px-4 py-2 rounded
-                bg-gray-200 text-gray-800
-                hover:bg-gray-300
-                dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600
-              "
+          px-4 py-2 rounded
+          bg-gray-200 text-gray-800
+          hover:bg-gray-300
+          dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600
+        "
             >
               Cancel
             </button>
@@ -217,6 +351,7 @@ export default function ApplicationsPage() {
       >
         {selected && (
           <div className="space-y-4">
+            {/* Client */}
             <div>
               <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200">
                 Client
@@ -226,16 +361,151 @@ export default function ApplicationsPage() {
                 onChange={(e) =>
                   setSelected({ ...selected, client: e.target.value })
                 }
+                disabled={
+                  selected.status === "approved" ||
+                  selected.status === "rejected"
+                }
                 placeholder="Client name"
-                className="
-                  w-full px-3 py-2 rounded border
-                  bg-white text-gray-900
-                  placeholder-gray-400
-                  dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500
-                  border-gray-300 dark:border-gray-600
-                "
+                className={`
+    w-full px-3 py-2 rounded border
+    bg-white text-gray-900
+    border-gray-300
+    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+    ${
+      selected.status === "approved" || selected.status === "rejected"
+        ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed text-gray-500 dark:text-gray-400"
+        : ""
+    }
+  `}
               />
             </div>
+
+            {/* Income */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <div>
+                <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200">
+                  Venit
+                </label>
+                <input
+                  type="number"
+                  value={selected.income?.amount ?? 0}
+                  onChange={(e) =>
+                    setSelected((prev) => {
+                      if (!prev) return prev;
+                      return {
+                        ...prev,
+                        income: {
+                          ...(prev.income ?? {
+                            employer: "",
+                            contractType: "",
+                            history: [],
+                          }),
+                          amount: Number(e.target.value),
+                        },
+                      };
+                    })
+                  }
+                  disabled={
+                    selected.status === "approved" ||
+                    selected.status === "rejected"
+                  }
+                  className={`
+    w-full px-3 py-2 rounded border
+    bg-white text-gray-900
+    border-gray-300
+    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+    ${
+      selected.status === "approved" || selected.status === "rejected"
+        ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed text-gray-500 dark:text-gray-400"
+        : ""
+    }
+  `}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200">
+                  Angajator
+                </label>
+                <input
+                  type="text"
+                  value={selected.income?.employer ?? ""}
+                  onChange={(e) =>
+                    setSelected((prev) => {
+                      if (!prev) return prev;
+                      return {
+                        ...prev,
+                        income: {
+                          ...(prev.income ?? {
+                            amount: 0,
+                            contractType: "",
+                            history: [],
+                          }),
+                          employer: e.target.value,
+                        },
+                      };
+                    })
+                  }
+                  disabled={
+                    selected.status === "approved" ||
+                    selected.status === "rejected"
+                  }
+                  className={`
+    w-full px-3 py-2 rounded border
+    bg-white text-gray-900
+    border-gray-300
+    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+    ${
+      selected.status === "approved" || selected.status === "rejected"
+        ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed text-gray-500 dark:text-gray-400"
+        : ""
+    }
+  `}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200">
+                  Tip contract
+                </label>
+                <select
+                  value={selected.income?.contractType ?? ""}
+                  onChange={(e) =>
+                    setSelected((prev) => {
+                      if (!prev) return prev;
+                      return {
+                        ...prev,
+                        income: {
+                          ...(prev.income ?? {
+                            amount: 0,
+                            employer: "",
+                            history: [],
+                          }),
+                          contractType: e.target.value,
+                        },
+                      };
+                    })
+                  }
+                  disabled={
+                    selected.status === "approved" ||
+                    selected.status === "rejected"
+                  }
+                  className="
+      w-full px-3 py-2 rounded border
+      bg-white text-gray-900
+      dark:bg-gray-800 dark:text-gray-100
+      border-gray-300 dark:border-gray-600
+    "
+                >
+                  <option value="">Selectează tipul contractului</option>
+                  <option value="Full-time">Full-time</option>
+                  <option value="Part-time">Part-time</option>
+                  <option value="Freelance">Freelance</option>
+                  <option value="Contractual">Contractual</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Status */}
             <div>
               <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200">
                 Status
@@ -248,12 +518,19 @@ export default function ApplicationsPage() {
                     status: e.target.value as RiskApplication["status"],
                   })
                 }
-                className="
-                  w-full px-3 py-2 rounded border
-                  bg-white text-gray-900
-                  dark:bg-gray-800 dark:text-gray-100
-                  border-gray-300 dark:border-gray-600
-                "
+                disabled={
+                  selected.status === "approved" ||
+                  selected.status === "rejected"
+                }
+                className={`
+            w-full px-3 py-2 rounded border
+            bg-white text-gray-900
+            dark:bg-gray-800 dark:text-gray-100
+            border-gray-300 dark:border-gray-600 ${
+              selected.status === "approved" || selected.status === "rejected"
+                ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
+                : ""
+            }`}
               >
                 {STATUS_OPTIONS.map((s) => (
                   <option key={s} value={s}>
@@ -261,6 +538,14 @@ export default function ApplicationsPage() {
                   </option>
                 ))}
               </select>
+              {(selected.status === "approved" ||
+                selected.status === "rejected") && (
+                <p className="text-sm text-red-500 mt-2 text-center">
+                  Aplicatia este
+                  {selected.status === "approved" ? " aprobata" : " respinsa"},
+                  nu mai pot fi facute modificari.
+                </p>
+              )}
             </div>
           </div>
         )}

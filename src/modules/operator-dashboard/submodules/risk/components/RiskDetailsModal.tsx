@@ -50,6 +50,8 @@ export default function RiskDetailsModal({
   const availableDocs = ["CI", "Venituri", "Contract muncă", "Altele"];
 
   const standardDocs = ["CI", "Venituri", "Contract"];
+  const isFinalized =
+    application.status === "approved" || application.status === "rejected";
 
   return (
     <Modal
@@ -163,7 +165,10 @@ export default function RiskDetailsModal({
                 setCustomDoc("");
                 toast(`Application ${application.id} documents requested`);
               }}
-              className="mt-2"
+              disabled={isFinalized}
+              className={`mt-2 ${
+                isFinalized ? "opacity-40 cursor-not-allowed" : ""
+              }`}
             >
               Trimite solicitare
             </Button>
@@ -173,6 +178,12 @@ export default function RiskDetailsModal({
 
       {/* Sticky action bar */}
       <div className="sticky bottom-0 left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur border-t border-gray-200 dark:border-gray-700 p-4 flex flex-wrap items-center justify-end gap-2 z-20">
+        {isFinalized && (
+          <div className="w-full p-2 bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-100 rounded-md text-sm flex items-center gap-2">
+            ⚠️ Acțiunile nu mai sunt disponibile pentru aplicațiile aprobate sau
+            respise.
+          </div>
+        )}
         {/* Desktop buttons */}
         <div className="hidden sm:flex gap-2 justify-end flex-wrap">
           <Button
@@ -180,7 +191,10 @@ export default function RiskDetailsModal({
               onApprove(application.id);
               toast.success(`Application ${application.id} approved`);
             }}
-            className="bg-blue-600 sm:w-auto w-full"
+            disabled={isFinalized}
+            className={`bg-blue-600 sm:w-auto w-full ${
+              isFinalized ? "opacity-40 cursor-not-allowed" : ""
+            }`}
           >
             Aprobă
           </Button>
@@ -189,7 +203,10 @@ export default function RiskDetailsModal({
               onReject(application.id);
               toast.error(`Application ${application.id} rejected`);
             }}
-            className="bg-blue-600 sm:w-auto w-full"
+            disabled={isFinalized}
+            className={`bg-blue-600 sm:w-auto w-full ${
+              isFinalized ? "opacity-40 cursor-not-allowed" : ""
+            }`}
           >
             Respinge
           </Button>
@@ -201,7 +218,10 @@ export default function RiskDetailsModal({
                 icon: "📝",
               });
             }}
-            className="bg-blue-600 sm:w-auto w-full"
+            disabled={isFinalized}
+            className={`bg-blue-600 sm:w-auto w-full ${
+              isFinalized ? "opacity-40 cursor-not-allowed" : ""
+            }`}
           >
             Manual Review
           </Button>
@@ -210,7 +230,10 @@ export default function RiskDetailsModal({
               handleScrollToDocs();
               toast(`Scroll to documents section`, { icon: "📄" });
             }}
-            className="bg-blue-600 sm:w-auto w-full"
+            disabled={isFinalized}
+            className={`bg-blue-600 sm:w-auto w-full ${
+              isFinalized ? "opacity-40 cursor-not-allowed" : ""
+            }`}
           >
             Solicită Documente
           </Button>
@@ -221,7 +244,10 @@ export default function RiskDetailsModal({
                 icon: "🛡️",
               });
             }}
-            className="bg-blue-600 sm:w-auto w-full "
+            disabled={isFinalized}
+            className={`bg-blue-600 sm:w-auto w-full ${
+              isFinalized ? "opacity-40 cursor-not-allowed" : ""
+            }`}
           >
             Trimite la AML
           </Button>
@@ -241,9 +267,10 @@ export default function RiskDetailsModal({
                       onApprove(application.id);
                       toast.success(`Application ${application.id} approved`);
                     }}
+                    disabled={isFinalized}
                     className={`w-full text-left p-2 ${
                       active ? "bg-blue-100 dark:bg-gray-700" : ""
-                    }`}
+                    } ${isFinalized ? "opacity-40 cursor-not-allowed" : ""}`}
                   >
                     Aproba
                   </button>
@@ -256,9 +283,10 @@ export default function RiskDetailsModal({
                       onReject(application.id);
                       toast.error(`Application ${application.id} rejected`);
                     }}
+                    disabled={isFinalized}
                     className={`w-full text-left p-2 ${
                       active ? "bg-blue-100 dark:bg-gray-700" : ""
-                    }`}
+                    } ${isFinalized ? "opacity-40 cursor-not-allowed" : ""}`}
                   >
                     Respinge
                   </button>
@@ -276,9 +304,10 @@ export default function RiskDetailsModal({
                         }
                       );
                     }}
+                    disabled={isFinalized}
                     className={`w-full text-left p-2 ${
                       active ? "bg-blue-100 dark:bg-gray-700" : ""
-                    }`}
+                    }${isFinalized ? "opacity-40 cursor-not-allowed" : ""} `}
                   >
                     Manual Review
                   </button>
@@ -291,9 +320,10 @@ export default function RiskDetailsModal({
                       handleScrollToDocs();
                       toast(`Scroll to documents section`, { icon: "📄" });
                     }}
+                    disabled={isFinalized}
                     className={`w-full text-left p-2 ${
                       active ? "bg-blue-100 dark:bg-gray-700" : ""
-                    }`}
+                    }${isFinalized ? "opacity-40 cursor-not-allowed" : ""} `}
                   >
                     Solicita Documente
                   </button>
@@ -308,9 +338,10 @@ export default function RiskDetailsModal({
                         icon: "🛡️",
                       });
                     }}
+                    disabled={isFinalized}
                     className={`w-full text-left p-2 ${
                       active ? "bg-blue-100 dark:bg-gray-700" : ""
-                    }`}
+                    } ${isFinalized ? "opacity-40 cursor-not-allowed" : ""}`}
                   >
                     Trimite in AML
                   </button>
