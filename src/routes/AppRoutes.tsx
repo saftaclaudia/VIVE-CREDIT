@@ -52,8 +52,6 @@ import AuditLog from "@/modules/admin/pages/AuditLog";
 import ReportsPage from "@/modules/operator-dashboard/submodules/reports/ReportsPage";
 import CollectionsDashboard from "@/modules/operator-dashboard/submodules/collections/components/CollectionsDashboard";
 
-
-
 /* Engines */
 import { AuditDashboard } from "@/modules/admin-audit/AuditDashboard";
 import DecisionPage from "@/modules/decision-engine/Pages/DecisionPage";
@@ -65,10 +63,8 @@ import { ScorecardEngine } from "@/modules/scoring/pages/ScorecardEngine";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import RequestLoanPage from "@/modules/applications/pages/RequestLoanPage";
 import ProtectedAdminRoute from "@/components/ProtectedAdminRoute";
-import ProtectedRoute from "@/components/ProtectedRoute";
 import AdminHomePage from "@/modules/admin/pages/AdminHomePage";
 import UsersPage from "@/modules/admin/pages/UsersPage";
-import RequestLoanPage from "@/modules/applications/pages/RequestLoanPage";
 import AdminLoginPage from "@/modules/auth/pages/AdminLoginPage";
 import { ApplicationsContextProvider } from "@/modules/operator-dashboard/hooks/ApplicationsContext";
 import FormScorecardClient from "@/modules/scoring/pages/FormScorecardClient";
@@ -256,7 +252,7 @@ const AppRoutes = () => {
         element={<DecisionResultCard />}
       />
       {/* Scoring */}
-
+      <Route
         path="/dashboard/decision-result"
         element={<DecisionResultCard />}
       />
